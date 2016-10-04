@@ -224,7 +224,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
     self.printCell.backgroundColor = [self.mp.appearance.settings objectForKey:kMPMainActionBackgroundColor];
     self.printLabel.font = [self.mp.appearance.settings objectForKey:kMPMainActionLinkFont];
     self.printLabel.textColor = [self.mp.appearance.settings objectForKey:kMPMainActionActiveLinkFontColor];
-    self.printLabel.text = MPLocalizedString(@"Print", @"Caption of the button for printing");
+    self.printLabel.text = MPLocalizedString(@"Print", @"Print button label");
     
     self.printSettingsCell.backgroundColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
     self.printSettingsCell.accessoryView = [[UIImageView alloc] initWithImage:[self.mp.appearance.settings objectForKey:kMPSelectionOptionsDisclosureIndicatorImage]];
@@ -409,7 +409,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
             self.title = MPLocalizedString(@"Add Print", @"Title of the Add Print to the Print Later Queue Screen");
             self.delegateManager.pageSettingsViewController = self;
         } else if( MPPageSettingsModeSettingsOnly == self.mode ) {
-            self.title = MPLocalizedString(@"Print Settings", @"Title of the screen for setting default print settings");
+            self.title = MPLocalizedString(@"Print Settings", @"Title of the print settings screen");
             self.delegateManager.pageSettingsViewController = self;
         } else {
             self.title = MPLocalizedString(@"Page Settings", @"Title of the Page Settings Screen");
@@ -482,7 +482,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
             self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
         }
         
-        if (IS_IPAD  &&  MPPageSettingsDisplayTypeSingleView == self.displayType) {
+        if (MPPageSettingsDisplayTypeSingleView == self.displayType) {
             self.displayType = MPPageSettingsDisplayTypePageSettingsPane;
             [self configureJobSummaryCell];
             [self.previewViewController.multiPageView changeToPage:_multiPageView.currentPage animated:NO];
@@ -937,7 +937,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
     NSString *result = nil;
     
     if (numberOfPrintingItems == 1) {
-        result = MPLocalizedString(@"Print", @"Caption of the button for printing");
+        result = MPLocalizedString(@"Print", @"Print button label");
     } else {
         NSInteger total = numberOfPrintingItems * copies;
         
@@ -1630,11 +1630,15 @@ CGFloat const kMPDisabledAlpha = 0.5;
             
             if (result) {
                 if ([self.printLaterDelegate respondsToSelector:@selector(didFinishAddPrintLaterFlow:)]) {
-                    [self.printLaterDelegate didFinishAddPrintLaterFlow:self];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.printLaterDelegate didFinishAddPrintLaterFlow:self];
+                    });
                 }
             } else {
                 if ([self.printLaterDelegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
-                    [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
+                    });
                 }
             }
         }

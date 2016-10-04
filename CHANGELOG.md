@@ -1,3 +1,17 @@
+#### 3.0.9
+###### Friday September 9, 2016
+
+- Added support for Japanese, Portuguese (Brazil), Turkish, and Chinese
+- Added debug logging for print layout
+- Rename reachability constant to avoid conflicts 
+- Fix crashes related to print queue
+
+#### 3.0.8
+###### Wednesday July 27, 2016
+
+- Fix compiler warnings
+- Fix handling of bundle when using frameworks
+
 #### 3.0.7
 ###### Tuesday May 17, 2016
 
@@ -7,6 +21,7 @@
 ###### Friday May 13, 2016
 
 - Adding support for multi-tasking (split screen) functionality
+- iOS7 is no longer supported
 
 #### 3.0.5
 ###### Wednesday April 27, 2016
