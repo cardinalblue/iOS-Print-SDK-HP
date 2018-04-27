@@ -42,7 +42,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kMPMobilePrintSDKReachabilityChangedNotification object:nil];
     self.reachability = [MPMobilePrintSDKReachability reachabilityForLocalWiFi];
     [self.reachability startNotifier];
-    self.connected = (NotReachable != [self.reachability currentReachabilityStatus]);
+    self.connected = (MPNotReachable != [self.reachability currentReachabilityStatus]);
 }
 
 - (void)noPrintingAlert
@@ -67,14 +67,14 @@
 
 - (BOOL)isWifiConnected
 {
-    return (NotReachable != [self.reachability currentReachabilityStatus]);
+    return (MPNotReachable != [self.reachability currentReachabilityStatus]);
 }
 
 - (void)reachabilityChanged:(NSNotification *)notification
 {
     MPMobilePrintSDKReachability *currentReachability = [notification object];
     NSParameterAssert([currentReachability isKindOfClass:[MPMobilePrintSDKReachability class]]);
-    BOOL connected = (NotReachable != [currentReachability currentReachabilityStatus]);
+    BOOL connected = (MPNotReachable != [currentReachability currentReachabilityStatus]);
     if (connected != self.connected) {
         self.connected = connected;
         if (self.connected) {
