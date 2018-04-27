@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
 s.name             = "MobilePrintSDK@cb"
-s.version          = "3.0.10.1"
+s.version          = "3.0.10.2"
 s.summary          = "Implements AirPrint with custom layouts, graphical preview, print later queue, and more."
 s.description      = <<-DESC
 Select paper size, printer, view preview and send to print through AirPrint. Provides for custom layouts, persistent settings, printer availability notifications, print later queue, and more.
